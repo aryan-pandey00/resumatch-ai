@@ -46,7 +46,7 @@ Built as a production-grade Streamlit application with a premium UI, secure API 
 - Structured form for all resume sections
 - AI enhancement — auto-generates summary and project descriptions
 - Live preview with one-click download
-- Smart score detection — enter `8.5` or `85` and it formats as CGPA or percentage automatically
+- Smart score detection — enter `8.5` or `85%` and it formats as CGPA or percentage automatically
 
 ---
 
