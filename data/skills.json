@@ -1,0 +1,61 @@
+{
+  "programming_languages": [
+    "python", "java", "c", "c++", "javascript", "js"
+  ],
+  "databases": [
+    "sql", "mysql", "postgresql", "mongodb", "sqlite"
+  ],
+  "ml_ai": [
+    "machine learning", "ml",
+    "deep learning", "dl",
+    "natural language processing", "nlp",
+    "computer vision",
+    "artificial intelligence", "ai"
+  ],
+  "libraries": [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "scikit-learn",
+    "tensorflow",
+    "keras",
+    "pytorch"
+  ],
+  "tools": [
+    "git",
+    "github",
+    "docker",
+    "kubernetes",
+    "aws",
+    "azure",
+    "gcp",
+    "linux"
+  ],
+  "web_development": [
+    "html",
+    "css",
+    "javascript",
+    "js",
+    "react",
+    "node.js",
+    "nodejs",
+    "flask",
+    "django",
+    "typescript"
+  ],
+  "core_subjects": [
+    "data structures",
+    "algorithms",
+    "dbms",
+    "operating system",
+    "computer networks"
+  ],
+  "data_tools": [
+    "excel",
+    "power bi",
+    "tableau",
+    "google sheets",
+    "statistics"
+  ]
+}

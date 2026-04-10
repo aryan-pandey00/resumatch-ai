@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+/* A4 CONTROL */
+@page {
+    size: A4;
+    margin: 14mm;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 16px 20px;
+    color: #222;
+    font-size: 13px;
+    line-height: 1.38;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 4px;
+}
+
+/* HEADER */
+.header {
+    margin-bottom: 14px;
+}
+
+.personal-name {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+}
+
+.personal-contact {
+    font-size: 12.5px;
+    color: #444;
+    margin-top: 4px;
+}
+
+.contact-item {
+    margin-right: 10px;
+}
+
+/* SECTION HEADINGS */
+h2 {
+    font-size: 12.5px;
+    font-weight: bold;
+    color: #2a6ebb;
+    text-transform: uppercase;
+    margin: 10px 0 6px 0;
+    position: relative;
+}
+
+/* TOP LINE */
+h2::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #bbb;
+}
+
+/* BOTTOM LINE */
+h2::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #bbb;
+}
+
+/* SECTION SPACING */
+.section, .card {
+    margin-bottom: 8px;
+}
+
+/* ENTRY */
+.entry {
+    margin-bottom: 6px;
+}
+
+/* ENTRY HEADER */
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: 1px;
+}
+
+/* TITLE */
+.entry-title {
+    font-weight: 600;
+    font-size: 13.5px;
+}
+
+/* DURATION */
+.entry-duration {
+    font-size: 12px;
+    color: #666;
+}
+
+.entry-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: #555;
+    margin-top: 1px;
+}
+
+.entry-sub {
+    font-style: normal;
+}
+
+.entry-meta {
+    font-size: 12.5px;
+}
+
+.section .entry:not(:last-child) {
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    border-bottom: none;
+}
+
+ul {
+    margin: 2px 0 0 0;
+    padding-left: 14px;
+}
+
+li {
+    margin-bottom: 1px;
+}
+
+.skills-list {
+    columns: 2;
+    column-gap: 40px;
+    padding-left: 14px;
+    margin-top: 2px;
+}
+
+.skills-list li {
+    break-inside: avoid;
+    margin-bottom: 3px;
+}
+
+/* LINKS */
+a {
+    color: #2a6ebb;
+    text-decoration: none;
+}
+
+.project-link {
+    font-size: 11.5px;
+}
+
+.entry-header {
+    margin-bottom: 2px;
+}
+
+@media print {
+    body {
+        font-size: 12.5px;
+        line-height: 1.32;
+    }
+
+    .section, .card {
+        margin-bottom: 8px;
+    }
+
+    .entry {
+        margin-bottom: 6px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="container">
+{{personal_section}}
+
+{{summary_section}}
+
+{{education_section}}
+
+{{skills_section}}
+
+{{experience_section}}
+
+{{projects_section}}
+
+{{certifications_section}}
+</div>
+</body>
+</html>

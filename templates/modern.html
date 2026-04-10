@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #f5f7fa;
+        }
+
+        .container {
+            width: 900px;
+            margin: 30px auto;
+            background: white;
+            display: flex;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            width: 30%;
+            background: linear-gradient(180deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .sidebar .section {
+            margin-bottom: 35px;
+        }
+
+        .sidebar h2 {
+        font-size: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        }
+
+        .sidebar ul {
+        margin-top: 10px;
+        }
+
+        .main {
+            width: 70%;
+            padding: 30px;
+        }
+
+        .header {
+            border-bottom: 3px solid #4ca1af;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* ENTRY BASE */
+        .section .entry {
+            margin-bottom: 16px;
+        }
+
+        /* DIVIDER */
+        .section .entry:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* TITLE (COURSE) */
+        .entry-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* YEAR */
+        .entry-duration {
+            font-size: 13px;
+            color: #cfd8dc;
+        }
+
+        /* SECOND ROW */
+        .entry-row {
+            margin-top: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* COLLEGE */
+        .entry-sub {
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+
+        /* CGPA / % */
+        .entry-meta {
+            font-size: 13px;
+            color: #cfd8dc;
+        }
+        .entry {
+            transition: all 0.2s ease;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .contact-item {
+        display: block;
+        }
+
+        .entry-row {
+        display: block;
+        }
+
+        hr {
+            display: block;
+        }
+
+        .contact {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .contact a {
+            color: #4ca1af;
+            text-decoration: none;
+        }
+
+        .entry-title {
+        font-weight: bold;
+        }
+
+        .entry-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        .experience-section .entry-header {
+        display: block;
+        }
+
+        .entry-duration {
+        font-size: 13px;
+        color: #666;
+        margin-top: 2px;
+        }
+
+        .sidebar .entry-header {
+        display: block;
+        }
+
+        .sidebar .entry-duration {
+        font-size: 13px;
+        color: rgba(255,255,255,0.8);
+        margin-top: 2px;
+        }
+
+        .skills-list {
+        padding-left: 18px;
+        }
+
+        .skill-item {
+            margin-bottom: 3px;
+        }
+
+        .cert-list {
+            padding-left: 18px;
+        }
+
+        .cert-item {
+            margin-bottom: 4px;
+        }
+
+        .personal-name {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2c3e50;
+        }
+
+        .card a {
+        background: #e8f5f7;
+        padding: 3px 8px;
+        border-radius: 5px;
+        }
+
+        .card {
+            background: #f9fbfd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #4ca1af;
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-title {
+            max-width: 85%;
+        }
+
+        .project-link {
+            color: #4ca1af;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+        @media print {
+        body {
+            background: white;
+            zoom: 0.9;
+        }
+
+        .container {
+            box-shadow: none;
+            margin: 0;
+            width: 100%;
+        }
+
+        .main {
+            padding: 20px;
+        }
+
+        .sidebar {
+            padding: 20px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .card {
+            margin-bottom: 10px;
+        }
+
+        .card, .section {
+            page-break-inside: avoid;
+        }
+
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        @media print {
+            body {
+                background: white;
+                zoom: 0.85;   
+            }
+
+            .container {
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .sidebar {
+                padding: 15px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .card {
+                margin-bottom: 10px;
+            }
+
+            .section {
+                margin-bottom: 10px;
+            }
+
+            /* Prevent breaking sections */
+            .card, .section {
+                page-break-inside: avoid;
+            }
+
+            /* Reduce text spacing slightly */
+            p {
+                margin: 3px 0;
+            }
+
+            ul {
+                margin: 5px 0;
+                padding-left: 15px;
+            }
+
+            li {
+                margin-bottom: 3px;
+            }
+        }
+
+    }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        {{education_section}}
+        
+        {{skills_section}}
+
+        {{certifications_section}}
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        {{personal_section}}
+
+        {{summary_section}}
+
+        {{experience_section}}
+
+        {{projects_section}}
+
+    </div>
+
+</div>
+
+</body>
+</html>

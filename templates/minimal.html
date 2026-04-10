@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 25px 35px;
+    color: #000;
+    font-size: 13.5px;
+    line-height: 1.4;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 10px;  
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.personal-name {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.personal-contact {
+    font-size: 12.5px;
+    margin-top: 3px;
+}
+
+.contact-item {
+    display: inline;
+}
+
+.contact-item:not(:last-child)::after {
+    content: " | ";
+}
+
+
+.card {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* SECTION */
+.section, .card {
+    margin-top: 12px;
+}
+
+h2 {
+    font-family: "Segoe UI Semibold", "Segoe UI", Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    
+
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+}
+
+/* ENTRY */
+.entry {
+    margin-bottom: 6px;
+}
+
+/* HEADER ROW */
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.entry-title {
+    font-weight: bold;
+}
+
+.entry-duration {
+    font-size: 12.5px;
+}
+
+/* SECOND ROW */
+.entry-sub {
+    display: inline-block;
+    width: 70%;
+}
+
+.entry-meta {
+    display: inline-block;
+    width: 30%;
+    text-align: right;
+    font-size: 12.5px;
+}
+
+/* LIST */
+ul {
+    margin: 2px 0 4px 0;
+    padding-left: 16px;
+}
+
+li {
+    margin-bottom: 2px;
+}
+
+.skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 clean columns */
+    column-gap: 20px;
+    row-gap: 4px;
+}
+
+.skills-list li {
+    font-size: 13px;
+    position: relative;
+    padding-left: 10px;
+}
+
+/* dash */
+.skills-list li::before {
+    content: "-";
+    position: absolute;
+    left: 0;
+}
+
+hr {
+    display: none;
+}
+
+/* PRINT */
+@media print {
+
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
+
+    body {
+        margin: 0;
+        font-size: 12.5px;
+    }
+
+    .section, .card {
+        margin-top: 8px;
+    }
+
+    .entry {
+        margin-bottom: 4px;
+        page-break-inside: avoid;
+    }
+
+    ul {
+        margin: 2px 0;
+    }
+    hr {
+    display: none;
+    }
+    
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    {{personal_section}}
+
+    {{summary_section}}
+
+    {{education_section}}
+
+    {{experience_section}}
+
+    {{skills_section}}
+
+    {{projects_section}}
+
+    {{certifications_section}}
+
+</div>
+
+</body>
+</html>
