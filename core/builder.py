@@ -198,7 +198,7 @@ def render_education(edu_list):
             score_clean = score.replace(" ", "")
 
             if "%" in score_clean:
-                html += f'<div class="entry-meta">Percentage: {score}</div>'
+                html += f'<div class="entry-meta">{score}</div>'
             else:
                 html += f'<div class="entry-meta">CGPA: {score}</div>'
 
