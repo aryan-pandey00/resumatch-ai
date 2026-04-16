@@ -1,5 +1,5 @@
 import streamlit as st
-from core.builder import render_resume
+from core.builder import render_resume, SKILL_CATEGORIES
 from core.genai import generate_resume_content
 from core.fallback import generate_fallback
 import random
@@ -53,16 +53,29 @@ def format_score(score):
         if val > 10:
             return f"{val}%"
         else:
-            return str(val) 
+            return str(val)
     except:
         return score
+
+
+# ── SKILL CATEGORY PLACEHOLDERS ──
+SKILL_PLACEHOLDERS = {
+    "Languages":              "Python, Java, C++, JavaScript, SQL",
+    "Frameworks & Libraries": "React, Django, TensorFlow, Pandas, Streamlit",
+    "Tools & Platforms":      "Git, GitHub, Postman, REST APIs, VS Code, MySQL",
+    "AI / ML":                "Machine Learning, NLP, Deep Learning, LLMs, GenAI",
+    "Cloud & DevOps":         "AWS, GCP, Docker, Linux, CI/CD",
+    "Core CS":                "Data Structures, Algorithms, DBMS, OS, CN",
+    "Soft Skills":            "Communication, Teamwork, Problem Solving",
+}
+
 
 # ── MAIN ──
 
 def main():
 
     # ── SESSION STATE ──
-    for key, default in [("exp_count", 1), ("proj_count", 1), ("edu_count", 1)]:
+    for key, default in [("exp_count", 1), ("proj_count", 1), ("edu_count", 1), ("cert_count", 1)]:
         if key not in st.session_state:
             st.session_state[key] = default
     if "template" not in st.session_state:
@@ -316,7 +329,6 @@ def main():
     """, unsafe_allow_html=True)
 
     # SECTION 1 — TEMPLATE SELECTION
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Choose Template</span>
@@ -363,7 +375,6 @@ def main():
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 2 — PERSONAL INFO
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Personal Information</span>
@@ -390,10 +401,15 @@ def main():
     with col2:
         linkedin = st.text_input("LinkedIn", placeholder="linkedin.com/in/username")
 
+    col1, col2 = st.columns(2, gap="medium")
+    with col1:
+        github = st.text_input("GitHub", placeholder="github.com/username (optional)")
+    with col2:
+        leetcode = st.text_input("LeetCode", placeholder="leetcode.com/username (optional)")
+
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 3 — SUMMARY
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Professional Summary</span>
@@ -416,8 +432,7 @@ def main():
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
-    # SECTION 4 — SKILLS
-
+    # SECTION 4 — SKILLS (CATEGORIZED)
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Skills</span>
@@ -425,17 +440,25 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    skills = st.text_input(
-        "Skills",
-        label_visibility="collapsed",
-        placeholder="Python, SQL, Excel..."
-    )
-    st.caption("Separate skills with commas")
+    st.caption("Fill only the categories relevant to you — empty ones won't appear on the resume.")
+
+    skills_dict = {}
+    # Render in 2 columns for compact layout
+    cat_pairs = [SKILL_CATEGORIES[i:i+2] for i in range(0, len(SKILL_CATEGORIES), 2)]
+    for pair in cat_pairs:
+        cols = st.columns(len(pair), gap="medium")
+        for col, cat in zip(cols, pair):
+            with col:
+                val = st.text_input(
+                    cat,
+                    key=f"skill_{cat}",
+                    placeholder=SKILL_PLACEHOLDERS.get(cat, "")
+                )
+                skills_dict[cat] = val
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 5 — EXPERIENCE
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Work Experience</span>
@@ -460,14 +483,23 @@ def main():
         with col3:
             duration = st.text_input("Duration", key=f"duration{i}", placeholder="Jan 2023 – Dec 2023")
 
-        desc = st.text_area(
-            "Description",
-            key=f"desc{i}",
-            height=80,
-            placeholder="Write each responsibility on a new line — each becomes a bullet point..."
-        )
+        col1, col2 = st.columns([3, 1], gap="small")
+        with col1:
+            desc = st.text_area(
+                "Description",
+                key=f"desc{i}",
+                height=80,
+                placeholder="Write in one line for a paragraph, or press Enter for each point to get bullet points."
+            )
+        with col2:
+            exp_link = st.text_input("Certificate Link", key=f"exp_link{i}", placeholder="optional")
+
         st.markdown('</div>', unsafe_allow_html=True)
-        exp_list.append({"role": role, "company": company, "duration": duration, "desc": desc})
+        exp_list.append({
+            "role": role, "company": company,
+            "duration": duration, "desc": desc,
+            "link": exp_link,
+        })
 
     col_add, col_remove = st.columns([1, 1])
     with col_add:
@@ -483,7 +515,6 @@ def main():
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 6 — PROJECTS
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Projects</span>
@@ -507,7 +538,7 @@ def main():
             "Description",
             key=f"pdesc{i}",
             height=80,
-            placeholder="Describe the project or use AI Enhancement to generate a description..."
+            placeholder="Write in one line for a paragraph, or press Enter for each point to get bullet points OR use AI Enhancement below..."
         )
         st.markdown('</div>', unsafe_allow_html=True)
         project_list.append({"title": title, "tech": tech, "desc": desc, "link": link})
@@ -526,7 +557,6 @@ def main():
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 7 — EDUCATION
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Education</span>
@@ -567,7 +597,6 @@ def main():
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 8 — CERTIFICATIONS
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Certifications</span>
@@ -575,18 +604,33 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    certifications = st.text_area(
-        "Certifications",
-        height=90,
-        label_visibility="collapsed",
-        placeholder="Google Data Analytics Certificate\nMeta Front-End Developer..."
-    )
-    st.caption("One certification per line")
+    cert_list = []
+    for i in range(st.session_state.cert_count):
+        st.markdown(f'<div class="entry-card"><div class="entry-card-title">Certification {i + 1}</div>', unsafe_allow_html=True)
+
+        col1, col2 = st.columns([3, 2], gap="medium")
+        with col1:
+            cert_name = st.text_input("Certificate Name", key=f"cert_name{i}")
+        with col2:
+            cert_link = st.text_input("Certificate Link", key=f"cert_link{i}", placeholder="optional")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+        cert_list.append({"name": cert_name, "link": cert_link})
+
+    col_add, col_remove = st.columns([1, 1])
+    with col_add:
+        if st.button("Add Certification", key="add_cert", use_container_width=True):
+            st.session_state.cert_count += 1
+            st.rerun()
+    with col_remove:
+        if st.session_state.cert_count > 1:
+            if st.button("Remove Last", key="rem_cert", use_container_width=True):
+                st.session_state.cert_count -= 1
+                st.rerun()
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 9 — AI ENHANCEMENT
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">AI Enhancement</span>
@@ -613,9 +657,13 @@ def main():
 
     if ai_clicked:
         with st.spinner("Generating AI content..."):
-            skills_list = [s.strip() for s in skills.split(",") if s.strip()]
-            if not skills_list:
-                skills_list = ["problem solving", "team collaboration"]
+            # Flatten skills dict for AI input
+            all_skills = []
+            for v in skills_dict.values():
+                if v and v.strip():
+                    all_skills.extend([s.strip() for s in v.split(",") if s.strip()])
+            if not all_skills:
+                all_skills = ["problem solving", "team collaboration"]
 
             project_inputs = []
             for p in project_list:
@@ -635,7 +683,7 @@ def main():
                 if r or c:
                     exp_inputs.append({"role": r or "Role", "company": c or "Organization"})
 
-            ai_input = {"skills": skills_list, "projects": project_inputs, "experience": exp_inputs}
+            ai_input = {"skills": all_skills, "projects": project_inputs, "experience": exp_inputs}
             ai_output = generate_resume_content(ai_input)
 
             if not ai_output:
@@ -674,7 +722,6 @@ def main():
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # SECTION 10 — LIVE PREVIEW
-
     st.markdown("""
     <div class="form-section-header">
         <span class="form-section-label">Live Preview</span>
@@ -682,19 +729,28 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
+    selected_template = st.session_state.get("template", "Minimal")
+
     data = {
-        "name": name, "email": email, "phone": phone, "linkedin": linkedin,
-        "summary": summary, "skills": skills,
+        "name":     name,
+        "email":    email,
+        "phone":    phone,
+        "linkedin": linkedin,
+        "github":   github,
+        "leetcode": leetcode,
+        "summary":  summary,
+        "skills":   skills_dict,
+        "template": selected_template,
         "experience": exp_list,
-        "projects": project_list,
+        "projects":   project_list,
         "education": [
             {**edu, "score": format_score(edu["score"])}
             for edu in edu_list
         ],
-        "certifications": certifications,
+        "certifications": cert_list,
     }
 
-    template_path = TEMPLATES[st.session_state.get("template", "Minimal")]
+    template_path = TEMPLATES[selected_template]
     with open(template_path, "r", encoding="utf-8") as f:
         template_html = f.read()
 

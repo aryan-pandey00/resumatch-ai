@@ -83,10 +83,13 @@
             justify-content: space-between;
         }
 
-        /* COLLEGE */
         .entry-sub {
-            font-size: 14px;
-            color: #e0e0e0;
+        font-size: 14px;
+        color: #e0e0e0;
+        }
+
+        .main .entry-sub {
+            color: #555555;
         }
 
         /* CGPA / % */
@@ -105,7 +108,11 @@
         }
 
         .contact-item {
-        display: block;
+        display: inline;
+        }
+
+        .contact-item:not(:last-child)::after {
+            content: " | ";
         }
 
         .entry-row {
@@ -139,7 +146,16 @@
         }
 
         .experience-section .entry-header {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        .experience-section .entry-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2px;
         }
 
         .entry-duration {
@@ -168,6 +184,11 @@
 
         .cert-list {
             padding-left: 18px;
+        }
+
+        .sidebar a {
+        color: #7dd3fc;
+        text-decoration: none;
         }
 
         .cert-item {

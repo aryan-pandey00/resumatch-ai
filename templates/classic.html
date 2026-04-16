@@ -44,7 +44,11 @@ body {
 }
 
 .contact-item {
-    margin-right: 10px;
+    display: inline;
+}
+
+.contact-item:not(:last-child)::after {
+    content: " | ";
 }
 
 /* SECTION HEADINGS */
